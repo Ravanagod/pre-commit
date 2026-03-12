@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Pre-Commit Risk Checker</title>
+
+<style>
+
+body{
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg,#0f172a,#1e293b);
+    color:white;
+    text-align:center;
+    padding:40px;
+}
+
+h1{
+    font-size:40px;
+    margin-bottom:10px;
+}
+
+textarea{
+    width:70%;
+    height:200px;
+    padding:15px;
+    font-size:15px;
+    border-radius:10px;
+    border:none;
+    background:#f8fafc;
+    color:#111;
+}
+
+button{
+    padding:12px 30px;
+    margin-top:15px;
+    font-size:16px;
+    border:none;
+    border-radius:8px;
+    background:#3b82f6;
+    color:white;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#2563eb;
+}
+
+#results{
+    margin-top:40px;
+}
+
+.score{
+    font-size:32px;
+    font-weight:bold;
+    margin:20px 0;
+}
+
+.issue-card{
+    background:#1e293b;
+    border-left:6px solid #ef4444;
+    padding:20px;
+    margin:15px auto;
+    width:60%;
+    border-radius:8px;
+    text-align:left;
+}
+
+.issue-title{
+    font-size:18px;
+    font-weight:bold;
+}
+
+.severity-high{
+    color:#ef4444;
+}
+
+.severity-medium{
+    color:#f59e0b;
+}
+
+.severity-low{
+    color:#10b981;
+}
+
+.fix{
+    margin-top:10px;
+    color:#cbd5f5;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>🚨 Pre-Commit Risk Checker</h1>
+
+<p>Paste your code diff before pushing</p>
+
+<textarea id="code"></textarea>
+
+<br>
+
+<button onclick="scanCode()">Analyze Code</button>
+
+<div id="results"></div>
+
+<script src="/static/script.js"></script>
+
+</body>
+</html>
