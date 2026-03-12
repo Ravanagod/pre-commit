@@ -1,110 +1,181 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 
 <title>Pre-Commit Risk Checker</title>
 
 <style>
 
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Segoe UI;
+}
+
 body{
-    font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(135deg,#0f172a,#1e293b);
-    color:white;
-    text-align:center;
-    padding:40px;
+background:#020617;
+color:white;
+min-height:100vh;
+overflow-x:hidden;
+}
+
+/* Animated cyber background */
+
+body::before{
+content:"";
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:
+radial-gradient(circle at 20% 20%,#0ea5e9 0%,transparent 40%),
+radial-gradient(circle at 80% 70%,#6366f1 0%,transparent 40%),
+radial-gradient(circle at 50% 50%,#06b6d4 0%,transparent 40%);
+opacity:0.15;
+animation:movebg 15s infinite alternate;
+z-index:-1;
+}
+
+@keyframes movebg{
+0%{transform:translateY(0px)}
+100%{transform:translateY(-40px)}
+}
+
+/* main container */
+
+.container{
+
+width:900px;
+margin:auto;
+padding:40px;
+margin-top:50px;
+
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(10px);
+
+border-radius:15px;
+box-shadow:0 10px 40px rgba(0,0,0,0.6);
+
 }
 
 h1{
-    font-size:40px;
-    margin-bottom:10px;
+text-align:center;
+margin-bottom:10px;
 }
+
+.subtitle{
+text-align:center;
+margin-bottom:25px;
+color:#cbd5f5;
+}
+
+/* code area */
 
 textarea{
-    width:70%;
-    height:200px;
-    padding:15px;
-    font-size:15px;
-    border-radius:10px;
-    border:none;
-    background:#f8fafc;
-    color:#111;
+
+width:100%;
+height:180px;
+
+border-radius:10px;
+border:none;
+
+padding:15px;
+
+background:#020617;
+color:#22c55e;
+
+font-family:monospace;
 }
 
+/* button */
+
 button{
-    padding:12px 30px;
-    margin-top:15px;
-    font-size:16px;
-    border:none;
-    border-radius:8px;
-    background:#3b82f6;
-    color:white;
-    cursor:pointer;
+
+display:block;
+margin:20px auto;
+
+padding:12px 40px;
+
+border:none;
+border-radius:8px;
+
+background:linear-gradient(45deg,#3b82f6,#06b6d4);
+color:white;
+
+cursor:pointer;
+font-size:16px;
+
+transition:0.3s;
+
 }
 
 button:hover{
-    background:#2563eb;
+transform:scale(1.05);
 }
 
-#results{
-    margin-top:40px;
+/* gauge */
+
+.gauge{
+
+width:160px;
+height:160px;
+margin:20px auto;
+
 }
 
-.score{
-    font-size:32px;
-    font-weight:bold;
-    margin:20px 0;
-}
+/* issue cards */
 
 .issue-card{
-    background:#1e293b;
-    border-left:6px solid #ef4444;
-    padding:20px;
-    margin:15px auto;
-    width:60%;
-    border-radius:8px;
-    text-align:left;
-}
 
-.issue-title{
-    font-size:18px;
-    font-weight:bold;
-}
+background:#1e293b;
+padding:20px;
+border-radius:10px;
+margin-top:15px;
 
-.severity-high{
-    color:#ef4444;
-}
-
-.severity-medium{
-    color:#f59e0b;
-}
-
-.severity-low{
-    color:#10b981;
 }
 
 .fix{
-    margin-top:10px;
-    color:#cbd5f5;
+color:#93c5fd;
+margin-top:8px;
+}
+
+.ai{
+color:#60a5fa;
+margin-top:8px;
 }
 
 </style>
+
 </head>
 
 <body>
 
+<div class="container">
+
 <h1>🚨 Pre-Commit Risk Checker</h1>
 
-<p>Paste your code diff before pushing</p>
+<p class="subtitle">
+Analyze code before committing to prevent vulnerabilities
+</p>
 
-<textarea id="code"></textarea>
-
-<br>
+<textarea id="code" placeholder="Paste your code here"></textarea>
 
 <button onclick="scanCode()">Analyze Code</button>
 
+<div class="gauge">
+<canvas id="scoreGauge"></canvas>
+</div>
+
 <div id="results"></div>
 
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="/static/script.js"></script>
 
 </body>
+
 </html>
